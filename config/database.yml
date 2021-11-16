@@ -4,6 +4,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: postgres
   password: <%= ENV["COOKBOOK_DATABASE_PASSWORD"] %>
+  host: localhost
 
 development:
   <<: *default

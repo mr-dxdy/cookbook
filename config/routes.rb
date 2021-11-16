@@ -1,3 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :vkontakte do
+    resources :sessions, only: %i[new] do
+      collection { get :create }
+    end
+  end
+
+  resource :sessions, only: %i[new destroy]
+  root to: "sessions#new"
+
+  resources :recipes, only: :index
 end
