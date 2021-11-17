@@ -1,0 +1,14 @@
+ru:
+  activerecord:
+    models:
+      user: Пользователь
+      dish: Блюдо
+    attributes:
+      user:
+        email: Электронная почта
+      dish:
+        name: Название
+        author: Автор
+        servings_number: Количество порций
+        cooking_time: Время приготовления (в минутах)
+        comment: Примечание

@@ -1,3 +1,5 @@
 class User < ApplicationRecord
-  validates :email, uniqueness: true, presence: true
+  has_many :dishes, foreign_key: :author_id, dependent: :destroy
+
+  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 end

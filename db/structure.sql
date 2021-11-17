@@ -24,6 +24,83 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: dishes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.dishes (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    author_id bigint NOT NULL,
+    servings_number integer NOT NULL,
+    cooking_time integer NOT NULL,
+    comment character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE dishes; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.dishes IS 'Блюда';
+
+
+--
+-- Name: COLUMN dishes.name; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.dishes.name IS 'Название';
+
+
+--
+-- Name: COLUMN dishes.author_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.dishes.author_id IS 'Автор';
+
+
+--
+-- Name: COLUMN dishes.servings_number; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.dishes.servings_number IS 'Количество порций';
+
+
+--
+-- Name: COLUMN dishes.cooking_time; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.dishes.cooking_time IS 'Время готовки, в минутах';
+
+
+--
+-- Name: COLUMN dishes.comment; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.dishes.comment IS 'Примечание';
+
+
+--
+-- Name: dishes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.dishes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: dishes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.dishes_id_seq OWNED BY public.dishes.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -71,6 +148,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: dishes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dishes ALTER COLUMN id SET DEFAULT nextval('public.dishes_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -83,6 +167,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: dishes dishes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dishes
+    ADD CONSTRAINT dishes_pkey PRIMARY KEY (id);
 
 
 --
@@ -102,10 +194,25 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_dishes_on_author_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_dishes_on_author_id ON public.dishes USING btree (author_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- Name: dishes fk_rails_a0b05cb66a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dishes
+    ADD CONSTRAINT fk_rails_a0b05cb66a FOREIGN KEY (author_id) REFERENCES public.users(id);
 
 
 --
@@ -115,6 +222,7 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20211017125635');
+('20211017125635'),
+('20211117082734');
 
 

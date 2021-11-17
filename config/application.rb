@@ -27,5 +27,7 @@ module Cookbook
     config.time_zone = "Moscow"
     config.generators.system_tests = nil
     config.active_record.schema_format = :sql
+    config.i18n.available_locales = %i[ru]
+    config.i18n.default_locale = :ru
   end
 end

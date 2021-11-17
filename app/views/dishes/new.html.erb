@@ -1,0 +1,27 @@
+<main class="position-fixed top-50 start-50 translate-middle">
+  <h2>Создание блюда</h2>
+
+  <div class="pt-5"></div>
+  <%= show_form_errors dish %>
+
+  <%= form_with model: dish do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, class: 'form-label' %>
+      <%= f.text_field :name, class: 'form-control', autocomplete: :off %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :cooking_time, class: 'form-label' %>
+      <%= f.number_field :cooking_time, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :servings_number, class: 'form-label' %>
+      <%= f.number_field :servings_number, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :comment, class: 'form-label' %>
+      <%= f.text_area :comment, rows: 3, class: 'form-control', autocomplete: :off %>
+    </div>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= link_to 'Отмена', recipes_path, class: 'btn btn-outline-dark' %>
+  <% end %>
+</main>
