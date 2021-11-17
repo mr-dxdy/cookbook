@@ -3,6 +3,7 @@ ru:
     models:
       user: Пользователь
       dish: Блюдо
+      tag: Тег
     attributes:
       user:
         email: Электронная почта
@@ -12,3 +13,7 @@ ru:
         servings_number: Количество порций
         cooking_time: Время приготовления (в минутах)
         comment: Примечание
+        tag_ids: Теги
+      tag:
+        name: Название
+        color: Цвет

@@ -1,0 +1,19 @@
+<main class="position-fixed top-50 start-50 translate-middle">
+  <h2>Создание тега</h2>
+
+  <div class="pt-5"></div>
+  <%= show_form_errors tag %>
+
+  <%= form_with model: tag do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, class: 'form-label' %>
+      <%= f.text_field :name, class: 'form-control', autocomplete: :off %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :color, class: 'form-label' %>
+      <%= f.color_field :color, class: 'form-control form-control-color' %>
+    </div>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= link_to 'Отмена', new_dish_path, class: 'btn btn-outline-dark' %>
+  <% end %>
+</main>

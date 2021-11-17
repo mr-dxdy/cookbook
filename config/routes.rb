@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   resources :recipes, only: :index
   resources :dishes, only: %i[new create]
+  resources :tags, only: %i[new create]
 end

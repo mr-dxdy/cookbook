@@ -110,6 +110,121 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: tag_links; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tag_links (
+    id bigint NOT NULL,
+    target_type character varying NOT NULL,
+    target_id bigint NOT NULL,
+    tag_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE tag_links; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.tag_links IS 'Ссылки на теги';
+
+
+--
+-- Name: COLUMN tag_links.target_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.tag_links.target_id IS 'Ссылка на сущность. Полиморфная связь';
+
+
+--
+-- Name: COLUMN tag_links.tag_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.tag_links.tag_id IS 'Ссылка на тег';
+
+
+--
+-- Name: tag_links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.tag_links_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tag_links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.tag_links_id_seq OWNED BY public.tag_links.id;
+
+
+--
+-- Name: tags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tags (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    color character varying NOT NULL,
+    author_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE tags; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.tags IS 'Теги';
+
+
+--
+-- Name: COLUMN tags.name; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.tags.name IS 'Название';
+
+
+--
+-- Name: COLUMN tags.color; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.tags.color IS 'Цвет';
+
+
+--
+-- Name: COLUMN tags.author_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.tags.author_id IS 'Автор';
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -155,6 +270,20 @@ ALTER TABLE ONLY public.dishes ALTER COLUMN id SET DEFAULT nextval('public.dishe
 
 
 --
+-- Name: tag_links id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tag_links ALTER COLUMN id SET DEFAULT nextval('public.tag_links_id_seq'::regclass);
+
+
+--
+-- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -186,6 +315,22 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: tag_links tag_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tag_links
+    ADD CONSTRAINT tag_links_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -198,6 +343,34 @@ ALTER TABLE ONLY public.users
 --
 
 CREATE INDEX index_dishes_on_author_id ON public.dishes USING btree (author_id);
+
+
+--
+-- Name: index_tag_links_on_tag_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tag_links_on_tag_id ON public.tag_links USING btree (tag_id);
+
+
+--
+-- Name: index_tag_links_on_target; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tag_links_on_target ON public.tag_links USING btree (target_type, target_id);
+
+
+--
+-- Name: index_tag_links_on_target_id_and_tag_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_tag_links_on_target_id_and_tag_id ON public.tag_links USING btree (target_id, tag_id);
+
+
+--
+-- Name: index_tags_on_author_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tags_on_author_id ON public.tags USING btree (author_id);
 
 
 --
@@ -216,6 +389,14 @@ ALTER TABLE ONLY public.dishes
 
 
 --
+-- Name: tags fk_rails_c074e4ce5b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT fk_rails_c074e4ce5b FOREIGN KEY (author_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -223,6 +404,7 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20211017125635'),
-('20211117082734');
+('20211117082734'),
+('20211117112952');
 
 
