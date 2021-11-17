@@ -1,5 +1,7 @@
-<h2>Добро пожаловать</h2>
-
-<p>
-  Войти через <%= link_to 'Вконтакте', new_vkontakte_session_path -%>
-</p>
+<main class="position-fixed top-50 start-50 translate-middle">
+  <div class="form-signin text-center">
+    <h1 class="h3 mb-3 fw-normal">Добро пожаловать!</h1>
+    <%= link_to 'Войти через VK', new_vkontakte_session_path, class: 'w-100 btn btn-lg btn-primary' -%>
+    <p class="mt-5 mb-3 text-muted">© &laquo;Кулинарные рецепты&raquo; 2021</p>
+  </div>
+</main>

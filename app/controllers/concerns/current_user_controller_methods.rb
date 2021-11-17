@@ -20,7 +20,7 @@ module CurrentUserControllerMethods
     end
 
     def authenticate_user!
-      redirect_to new_sessions_path unless current_user
+      redirect_to new_sessions_path, alert: "Пожалуйста, авторизируйтесь!" unless current_user
     end
   end
 end
