@@ -15,7 +15,7 @@ function createTagsMultiSelect() {
     data: function() { return { tags, selected }; },
     components: { Multiselect },
     template: `
-      <div>
+      <div class="form-control">
         <Multiselect
           v-model="selected"
           placeholder="Выберите теги"

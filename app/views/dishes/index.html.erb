@@ -1,0 +1,10 @@
+<div>
+  <h2 class="d-inline">Блюда</h2>
+  <%= link_to '+', new_dish_path, class: 'btn btn-primary btn-sm align-top mx-2' -%>
+</div>
+
+<% grouped_dishes.each_pair do |tag, dishes| %>
+  <div class="accordion">
+    <%= render partial: 'dishes/tag_dishes', locals: { tag: tag, dishes: dishes } -%>
+  </div>
+<% end %>

@@ -11,8 +11,8 @@
   </head>
 
   <body>
+    <%= render partial: 'layouts/navigation' if current_user -%>
     <%= render partial: 'layouts/flash' -%>
-    <%= link_to 'Выйти', sessions_path, method: :delete if current_user -%>
-    <%= yield %>
+    <main class="container"><%= yield %></main>
   </body>
 </html>

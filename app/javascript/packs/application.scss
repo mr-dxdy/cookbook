@@ -1,4 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
+@import '~bootstrap-icons/font/bootstrap-icons.css'
 
 @import "../stylesheets/flash.scss";
 @import "../stylesheets/forms.scss";
+
+body {
+  padding-top: 4.5rem;
+}

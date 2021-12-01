@@ -22,7 +22,7 @@
           }
         }
        ) %>
-      <%= link_to '+', new_tag_path(context: :dish), class: 'btn btn-outline-secondary' %>
+      <%= link_to '+', new_tag_path, class: 'btn btn-outline-secondary' %>
     </div>
   </div>
   <div class="mb-3">
@@ -38,7 +38,7 @@
     <%= f.text_area :comment, rows: 3, class: 'form-control', autocomplete: :off %>
   </div>
   <%= f.submit nil, class: 'btn btn-primary' %>
-  <%= link_to 'Отмена', recipes_path, class: 'btn btn-outline-dark' %>
+  <%= link_to 'Отмена', dishes_path, class: 'btn btn-outline-dark' %>
 <% end %>
 
 <%= javascript_pack_tag 'dishes/form', 'data-turbolinks-track': 'reload' %>

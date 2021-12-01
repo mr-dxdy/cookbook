@@ -1,0 +1,23 @@
+<h2>Теги</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tags.each.with_index(1) do |tag, position| %>
+      <tr>
+        <th scope="row"><%= position %></th>
+        <td><%= tag.name %></td>
+        <td>
+          <%= link_to 'Редактировать', edit_tag_path(tag), class: 'btn btn-secondary' -%>
+          <%= link_to 'Удалить', tag, method: :delete, data: {confirm: 'Вы уверены?'}, class: 'btn btn-danger' -%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

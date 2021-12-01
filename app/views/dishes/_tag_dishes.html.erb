@@ -1,0 +1,22 @@
+<div class="accordion-item">
+  <h2 class="accordion-header" id="headingOne">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <%= tag.name -%>
+    </button>
+  </h2>
+  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <ul class="list-group">
+        <% dishes.each do |dish| %>
+          <li class="list-group-item">
+            <%= dish.name -%>
+            <span class="float-end">
+              <%= link_to 'Редактировать', edit_dish_path(dish), class: 'btn btn-secondary btn-sm' -%>
+              <%= link_to 'Удалить', dish, method: :delete, data: {confirm: 'Вы уверены?'}, class: 'btn btn-danger btn-sm' -%>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

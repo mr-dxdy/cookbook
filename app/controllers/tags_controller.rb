@@ -1,11 +1,16 @@
 class TagsController < ApplicationController
+  def index
+    tags = current_user.tags.ordered
+    render locals: { tags: tags }
+  end
+
   def new
-    tag = current_user.tags.build context: params[:context]
+    tag = current_user.tags.build
     render locals: { tag: tag }
   end
 
   def create
-    tag = current_user.tags.build tag_params
+    tag = current_user.tags.build tag_params.merhe(context: :dishe)
 
     if tag.save
       redirect_to new_dish_path, notice: "Тег успешно создан"
@@ -14,9 +19,31 @@ class TagsController < ApplicationController
     end
   end
 
+  def edit
+    tag = current_user.tags.find params[:id]
+    render locals: { tag: tag }
+  end
+
+  def update
+    tag = current_user.tags.find params[:id]
+
+    if tag.update tag_params
+      redirect_to tags_path, notice: "Тег успешно обновлен"
+    else
+      render :edit, locals: { tag: tag }
+    end
+  end
+
+  def destroy
+    tag = current_user.tags.find params[:id]
+    tag.destroy
+
+    redirect_to tags_path, notice: "Тег успешно удален"
+  end
+
   private
 
   def tag_params
-    params.require(:tag).permit(:name, :color, :context)
+    params.require(:tag).permit(:name, :color)
   end
 end
