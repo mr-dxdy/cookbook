@@ -172,6 +172,7 @@ CREATE TABLE public.tags (
     name character varying NOT NULL,
     color character varying NOT NULL,
     author_id bigint NOT NULL,
+    context character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -203,6 +204,13 @@ COMMENT ON COLUMN public.tags.color IS 'Цвет';
 --
 
 COMMENT ON COLUMN public.tags.author_id IS 'Автор';
+
+
+--
+-- Name: COLUMN tags.context; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.tags.context IS 'Контекст';
 
 
 --

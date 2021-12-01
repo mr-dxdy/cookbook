@@ -4,6 +4,7 @@ class CreateTags < ActiveRecord::Migration[6.1]
       t.string :name, null: false, comment: 'Название'
       t.string :color, null: false, comment: 'Цвет'
       t.belongs_to :author, null: false, foreign_key: { to_table: :users }, index: true, comment: 'Автор'
+      t.string :context, null: false, comment: 'Контекст'
 
       t.timestamps
     end

@@ -9,5 +9,3 @@ import bootstrap from "bootstrap"
 
 Rails.start()
 Turbolinks.start()
-
-import "controllers"

@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   def new
-    tag = current_user.tags.build
+    tag = current_user.tags.build context: params[:context]
     render locals: { tag: tag }
   end
 
@@ -17,6 +17,6 @@ class TagsController < ApplicationController
   private
 
   def tag_params
-    params.require(:tag).permit(:name, :color)
+    params.require(:tag).permit(:name, :color, :context)
   end
 end

@@ -17,3 +17,4 @@ ru:
       tag:
         name: Название
         color: Цвет
+        context: Контекст
