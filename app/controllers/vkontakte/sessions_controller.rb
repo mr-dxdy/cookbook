@@ -11,7 +11,7 @@ class Vkontakte::SessionsController < Vkontakte::ApplicationController
       user = User.find_or_create_by!(email: email)
       sign_in user
 
-      redirect_to recipes_path
+      redirect_to redirect_after_sign_in, notice: "Добро пожаловать!"
     else
       redirect_to new_session_path, alert: "Не удалось авторизоваться через VK"
     end

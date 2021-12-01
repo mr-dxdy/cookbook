@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate_user!, only: :new
 
   def new
+    redirect_to redirect_after_sign_in if current_user
   end
 
   def destroy

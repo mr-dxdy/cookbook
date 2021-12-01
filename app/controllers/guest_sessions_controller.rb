@@ -7,7 +7,7 @@ class GuestSessionsController < ApplicationController
     if user = User.find_or_create_by(email: Settings.guest_email)
       sign_in user
 
-      redirect_to recipes_path
+      redirect_to redirect_after_sign_in, notice: "Добро пожаловать!"
     else
       redirect_to new_session_path, alert: "Не удалось войти как гость"
     end

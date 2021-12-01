@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   def user_not_authorized(exception)
     redirect_to root_path, alert: "Доступ запрещен"
   end
+
+  def redirect_after_sign_in
+    recipes_path
+  end
 end
