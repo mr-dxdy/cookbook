@@ -5,6 +5,7 @@ class Tag < ApplicationRecord
   validates :name, :context, presence: true
   validates :color, format: { with: /\A#[0-9A-Fa-f]{6}\Z/ }
 
-  scope :ordered, ->{ order(name: :desc) }
+  scope :ordered, ->{ order(name: :asc) }
   scope :dishes, ->{ where(context: :dish) }
+  scope :categories, ->{ where(context: :category) }
 end

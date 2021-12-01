@@ -4,6 +4,7 @@ ru:
       user: Пользователь
       dish: Блюдо
       tag: Тег
+      product: Продукт
     attributes:
       user:
         email: Электронная почта
@@ -18,3 +19,6 @@ ru:
         name: Название
         color: Цвет
         context: Контекст
+      product:
+        name: Название
+        category_ids: Категории

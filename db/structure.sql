@@ -101,6 +101,59 @@ ALTER SEQUENCE public.dishes_id_seq OWNED BY public.dishes.id;
 
 
 --
+-- Name: products; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    author_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE products; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.products IS 'Продукты';
+
+
+--
+-- Name: COLUMN products.name; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.products.name IS 'Название';
+
+
+--
+-- Name: COLUMN products.author_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.products.author_id IS 'Автор';
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -278,6 +331,13 @@ ALTER TABLE ONLY public.dishes ALTER COLUMN id SET DEFAULT nextval('public.dishe
 
 
 --
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+
+--
 -- Name: tag_links id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -312,6 +372,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.dishes
     ADD CONSTRAINT dishes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
 
 --
@@ -351,6 +419,13 @@ ALTER TABLE ONLY public.users
 --
 
 CREATE INDEX index_dishes_on_author_id ON public.dishes USING btree (author_id);
+
+
+--
+-- Name: index_products_on_author_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_author_id ON public.products USING btree (author_id);
 
 
 --
@@ -405,6 +480,14 @@ ALTER TABLE ONLY public.tags
 
 
 --
+-- Name: products fk_rails_fcdcd47b60; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_fcdcd47b60 FOREIGN KEY (author_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -413,6 +496,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20211017125635'),
 ('20211117082734'),
-('20211117112952');
+('20211117112952'),
+('20211118113451');
 
 

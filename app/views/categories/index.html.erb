@@ -1,0 +1,26 @@
+<div>
+  <h2 class="d-inline">Категории</h2>
+  <%= link_to '+', new_category_path, class: 'btn btn-primary btn-sm align-top mx-2' -%>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% categories.each.with_index(1) do |category, position| %>
+      <tr>
+        <th scope="row"><%= position %></th>
+        <td><%= category.name %></td>
+        <td>
+          <%= link_to 'Редактировать', edit_category_path(category), class: 'btn btn-secondary' -%>
+          <%= link_to 'Удалить', category_path(category), method: :delete, data: {confirm: 'Вы уверены?'}, class: 'btn btn-danger' -%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

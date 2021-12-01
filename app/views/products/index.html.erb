@@ -1,0 +1,10 @@
+<div>
+  <h2 class="d-inline">Продукты</h2>
+  <%= link_to '+', new_product_path, class: 'btn btn-primary btn-sm align-top mx-2' -%>
+</div>
+
+<% grouped_products.each_pair do |category, products| %>
+  <div class="accordion">
+    <%= render partial: 'products/category_products', locals: { category: category, products: products } -%>
+  </div>
+<% end %>
