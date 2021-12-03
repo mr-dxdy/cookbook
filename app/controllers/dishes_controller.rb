@@ -11,7 +11,7 @@ class DishesController < ApplicationController
 
   def new
     dish = current_user.dishes.new
-    render locals: { dish: dish, tags: tags_resource }
+    render locals: { dish: dish, tags: tags_resource, products: products_resource }
   end
 
   def create
@@ -20,7 +20,7 @@ class DishesController < ApplicationController
     if dish.save
       redirect_to dishes_path, notice: "Блюдо успешно создано"
     else
-      render :new, locals: { dish: dish, tags: tags_resource }
+      render :new, locals: { dish: dish, tags: tags_resource, products: products_resource }
     end
   end
 
@@ -35,7 +35,7 @@ class DishesController < ApplicationController
     if dish.update dishe_params
       redirect_to dishes_path, notice: "Блюдо успешно обновлено"
     else
-      render :edit, locals: { dish: dish, tags: tags_resource }
+      render :edit, locals: { dish: dish, tags: tags_resource, products: products_resource }
     end
   end
 
@@ -50,6 +50,10 @@ class DishesController < ApplicationController
 
   def tags_resource
     @tags_resource ||= Tag.dishes.ordered
+  end
+
+  def products_resource
+    @products_resource ||= current_user.products.ordered
   end
 
   def dishe_params

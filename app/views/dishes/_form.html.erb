@@ -7,6 +7,19 @@
     <%= f.text_field :name, class: 'form-control', autocomplete: :off %>
   </div>
   <div class="mb-3">
+    <%= f.label :ingredients, class: 'form-label' %>
+    <%= content_tag :div,
+      '',
+      id: :ingredients,
+      data: {
+        ingredients: dish.ingredients.as_json(except: %i[created_at updated_at], include: :product),
+        products: products.as_json(only: %i[id name]),
+        units: []
+      }
+    %>
+    <div id="ingredients"></div>
+  </div>
+  <div class="mb-3">
     <%= f.label :tag_ids, class: 'form-label' %>
     <div class="input-group">
       <%= f.collection_select(

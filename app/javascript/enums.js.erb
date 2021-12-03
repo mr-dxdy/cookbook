@@ -1,0 +1,7 @@
+let Units = [];
+
+<% Ingredient.units.each_pair do |name, value| %>
+  Units.push({ id: <%= value %>, name: '<%= name %>' });
+<% end %>
+
+export {Units};
