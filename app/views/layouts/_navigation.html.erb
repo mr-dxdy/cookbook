@@ -6,7 +6,9 @@
         <li><%= link_to 'Продукты', products_path, class: "nav-link" -%></li>
         <li><%= link_to 'Теги', tags_path, class: "nav-link" -%></li>
         <li><%= link_to 'Разделы', categories_path, class: 'nav-link' -%></li>
-        <li><%= link_to 'Выйти', sessions_path, method: :delete, class: "nav-link" -%></li>
+      </ul>
+      <ul class="navbar-nav float-end">
+        <li><%= link_to 'Выйти', sessions_path, method: :delete, class: "nav-link", data: { confirm: 'Вы уверены?' } -%></li>
       </ul>
     </div>
   </div>
