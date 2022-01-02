@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    category = current_user.categories.build
+    category = current_user.categories.build(color: '#000000')
     render locals: { category:category }
   end
 
