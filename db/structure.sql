@@ -11,6 +11,8 @@ SET row_security = off;
 
 SET default_tablespace = '';
 
+SET default_table_access_method = heap;
+
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
@@ -98,6 +100,75 @@ CREATE SEQUENCE public.dishes_id_seq
 --
 
 ALTER SEQUENCE public.dishes_id_seq OWNED BY public.dishes.id;
+
+
+--
+-- Name: ingredients; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ingredients (
+    id bigint NOT NULL,
+    dish_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    number integer NOT NULL,
+    unit integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE ingredients; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.ingredients IS 'Игредиенты';
+
+
+--
+-- Name: COLUMN ingredients.dish_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.ingredients.dish_id IS 'Блюдо';
+
+
+--
+-- Name: COLUMN ingredients.product_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.ingredients.product_id IS 'Продукт';
+
+
+--
+-- Name: COLUMN ingredients.number; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.ingredients.number IS 'Количество';
+
+
+--
+-- Name: COLUMN ingredients.unit; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.ingredients.unit IS 'Единицы измерения';
+
+
+--
+-- Name: ingredients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.ingredients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ingredients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.ingredients_id_seq OWNED BY public.ingredients.id;
 
 
 --
@@ -298,6 +369,13 @@ CREATE TABLE public.users (
 
 
 --
+-- Name: TABLE users; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.users IS 'Пользователи';
+
+
+--
 -- Name: COLUMN users.email; Type: COMMENT; Schema: public; Owner: -
 --
 
@@ -328,6 +406,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 --
 
 ALTER TABLE ONLY public.dishes ALTER COLUMN id SET DEFAULT nextval('public.dishes_id_seq'::regclass);
+
+
+--
+-- Name: ingredients id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ingredients ALTER COLUMN id SET DEFAULT nextval('public.ingredients_id_seq'::regclass);
 
 
 --
@@ -372,6 +457,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.dishes
     ADD CONSTRAINT dishes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ingredients ingredients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT ingredients_pkey PRIMARY KEY (id);
 
 
 --
@@ -422,6 +515,20 @@ CREATE INDEX index_dishes_on_author_id ON public.dishes USING btree (author_id);
 
 
 --
+-- Name: index_ingredients_on_dish_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ingredients_on_dish_id ON public.ingredients USING btree (dish_id);
+
+
+--
+-- Name: index_ingredients_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ingredients_on_product_id ON public.ingredients USING btree (product_id);
+
+
+--
 -- Name: index_products_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -464,6 +571,14 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
+-- Name: ingredients fk_rails_17c82ffdc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT fk_rails_17c82ffdc6 FOREIGN KEY (dish_id) REFERENCES public.dishes(id);
+
+
+--
 -- Name: dishes fk_rails_a0b05cb66a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -477,6 +592,14 @@ ALTER TABLE ONLY public.dishes
 
 ALTER TABLE ONLY public.tags
     ADD CONSTRAINT fk_rails_c074e4ce5b FOREIGN KEY (author_id) REFERENCES public.users(id);
+
+
+--
+-- Name: ingredients fk_rails_db974bf3ef; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT fk_rails_db974bf3ef FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
@@ -497,6 +620,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211017125635'),
 ('20211117082734'),
 ('20211117112952'),
-('20211118113451');
+('20211118113451'),
+('20211202070743');
 
 

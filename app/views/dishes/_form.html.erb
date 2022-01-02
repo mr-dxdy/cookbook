@@ -7,6 +7,18 @@
     <%= f.text_field :name, class: 'form-control', autocomplete: :off %>
   </div>
   <div class="mb-3">
+    <%= f.label :ingredients, class: 'form-label' %>
+    <%= content_tag :div,
+      '',
+      id: :ingredients,
+      data: {
+        ingredients: IngredientSerializer.as_json(dish.ingredients),
+        products: ProductSerializer.as_json(products_resource)
+      }
+    %>
+    <div id="ingredients"></div>
+  </div>
+  <div class="mb-3">
     <%= f.label :tag_ids, class: 'form-label' %>
     <div class="input-group">
       <%= f.collection_select(
@@ -17,8 +29,8 @@
         {},
         { class: 'form-select',
           data: {
-            tags: tags.as_json(only: %i[id name]),
-            selected: dish.tags.as_json(only: %i[id name])
+            tags: TagSerializer.as_json(tags_resource),
+            selected: TagSerializer.as_json(dish.tags)
           }
         }
        ) %>

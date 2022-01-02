@@ -5,6 +5,7 @@ ru:
       dish: Блюдо
       tag: Тег
       product: Продукт
+      ingredient: Ингредиент
     attributes:
       user:
         email: Электронная почта
@@ -15,6 +16,7 @@ ru:
         cooking_time: Время приготовления (в минутах)
         comment: Примечание
         tag_ids: Теги
+        ingredients: Игредиенты
       tag:
         name: Название
         color: Цвет
@@ -22,3 +24,8 @@ ru:
       product:
         name: Название
         category_ids: Категории
+      ingredient:
+        dish: Блюдо
+        product: Продукт
+        number: Количество
+        unit: Единицы измерения

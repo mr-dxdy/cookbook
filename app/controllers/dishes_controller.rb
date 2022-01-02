@@ -1,4 +1,6 @@
 class DishesController < ApplicationController
+  helper_method :tags_resource, :products_resource
+
   def index
     dishes = current_user.dishes.includes(:tags)
     grouped_dishes = dishes.each_with_object(Hash.new(SortedSet.new)) do |dish, hash|
@@ -11,7 +13,7 @@ class DishesController < ApplicationController
 
   def new
     dish = current_user.dishes.new
-    render locals: { dish: dish, tags: tags_resource }
+    render locals: { dish: dish }
   end
 
   def create
@@ -20,13 +22,13 @@ class DishesController < ApplicationController
     if dish.save
       redirect_to dishes_path, notice: "Блюдо успешно создано"
     else
-      render :new, locals: { dish: dish, tags: tags_resource }
+      render :new, locals: { dish: dish }
     end
   end
 
   def edit
     dish = current_user.dishes.find params[:id]
-    render locals: { dish: dish, tags: tags_resource }
+    render locals: { dish: dish }
   end
 
   def update
@@ -35,7 +37,7 @@ class DishesController < ApplicationController
     if dish.update dishe_params
       redirect_to dishes_path, notice: "Блюдо успешно обновлено"
     else
-      render :edit, locals: { dish: dish, tags: tags_resource }
+      render :edit, locals: { dish: dish }
     end
   end
 
@@ -52,13 +54,18 @@ class DishesController < ApplicationController
     @tags_resource ||= Tag.dishes.ordered
   end
 
+  def products_resource
+    @products_resource ||= current_user.products.ordered
+  end
+
   def dishe_params
     params.require(:dish).permit(
       :name,
       :servings_number,
       :cooking_time,
       :comment,
-      tag_ids: []
+      tag_ids: [],
+      ingredients_attributes: [:id, :product_id, :number, :unit, :_destroy]
     )
   end
 end
