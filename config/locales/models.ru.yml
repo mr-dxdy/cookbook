@@ -23,7 +23,7 @@ ru:
         context: Контекст
       product:
         name: Название
-        category_ids: Категории
+        category_ids: Разделы
       ingredient:
         dish: Блюдо
         product: Продукт

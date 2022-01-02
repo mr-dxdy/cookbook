@@ -18,7 +18,7 @@ function createCategoriesMultiSelect() {
       <div class="form-control">
         <Multiselect
           v-model="selected"
-          placeholder="Выберите категории"
+          placeholder="Выберите разделы"
           selectLabel=""
           label="name"
           track-by="id"
@@ -27,7 +27,7 @@ function createCategoriesMultiSelect() {
           :taggable="true">
         </Multiselect>
         <input v-for="category in selected" :key="category.id" :category="category"
-          v-bind:value="category.id"
+          v-model="category.id"
           type="hidden"
           multiple="multiple"
           name="product[category_ids][]"
