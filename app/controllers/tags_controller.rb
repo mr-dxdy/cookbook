@@ -13,7 +13,7 @@ class TagsController < ApplicationController
     tag = current_user.tags.build tag_params
 
     if tag.save
-      redirect_to new_dish_path, notice: "Тег успешно создан"
+      redirect_to tags_path, notice: "Тег успешно создан"
     else
       render :new, locals: { tag: tag }
     end
